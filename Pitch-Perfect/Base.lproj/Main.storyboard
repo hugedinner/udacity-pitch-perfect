@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D105g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="o5p-XL-PGL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D113c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="o5p-XL-PGL">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -47,7 +47,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="lVH-AY-EVy" kind="show" id="JsS-TG-Evq"/>
+                                    <action selector="stopAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VDu-t0-c2I"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -70,10 +70,10 @@
                                 <exclude reference="ZhT-Yi-z3k"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="7Gb-Mq-qOE"/>
-                                <exclude reference="xK7-A0-moX"/>
                                 <exclude reference="VLe-za-2Mn"/>
                                 <exclude reference="b5g-Dy-ZYD"/>
+                                <exclude reference="7Gb-Mq-qOE"/>
+                                <exclude reference="xK7-A0-moX"/>
                                 <exclude reference="Bdw-zL-wEs"/>
                                 <exclude reference="RpT-g6-zRt"/>
                             </mask>
@@ -86,10 +86,10 @@
                                 <include reference="ZhT-Yi-z3k"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="7Gb-Mq-qOE"/>
-                                <include reference="xK7-A0-moX"/>
                                 <include reference="VLe-za-2Mn"/>
                                 <include reference="b5g-Dy-ZYD"/>
+                                <include reference="7Gb-Mq-qOE"/>
+                                <include reference="xK7-A0-moX"/>
                                 <include reference="Bdw-zL-wEs"/>
                                 <include reference="RpT-g6-zRt"/>
                             </mask>
@@ -100,6 +100,7 @@
                         <outlet property="recordButton" destination="Bh7-fT-lIC" id="RkP-46-Doj"/>
                         <outlet property="recordingInProgress" destination="hC8-Ex-ibc" id="yss-8f-ILI"/>
                         <outlet property="stopButton" destination="ZhT-Yi-z3k" id="rCP-Uj-4Ec"/>
+                        <segue destination="lVH-AY-EVy" kind="show" identifier="stopRecording" id="r2g-QC-nfg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -115,6 +116,7 @@
                         <viewControllerLayoutGuide type="bottom" id="b78-QS-HQr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Nha-e4-qQa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpV-xm-HCI">
@@ -235,12 +237,11 @@
                                 <exclude reference="4pA-aU-LqN"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="k8I-PK-QFj"/>
-                                <exclude reference="DZG-4r-M6R"/>
-                                <exclude reference="lIT-dl-fID"/>
-                                <exclude reference="ukj-2P-XtL"/>
+                                <exclude reference="NO6-W3-HLH"/>
                                 <exclude reference="6dd-yP-1qb"/>
-                                <exclude reference="tUq-E6-zsx"/>
+                                <exclude reference="lIT-dl-fID"/>
+                                <exclude reference="DZG-4r-M6R"/>
+                                <exclude reference="ukj-2P-XtL"/>
                                 <exclude reference="8IW-TH-W2l"/>
                                 <exclude reference="GsI-Ij-0bL"/>
                                 <exclude reference="QmF-HF-ihv"/>
@@ -248,7 +249,8 @@
                                 <exclude reference="bIB-J3-eq0"/>
                                 <exclude reference="ito-jC-RJc"/>
                                 <exclude reference="kDL-4L-tec"/>
-                                <exclude reference="NO6-W3-HLH"/>
+                                <exclude reference="tUq-E6-zsx"/>
+                                <exclude reference="k8I-PK-QFj"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -262,12 +264,11 @@
                                 <include reference="4pA-aU-LqN"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="k8I-PK-QFj"/>
-                                <include reference="DZG-4r-M6R"/>
-                                <include reference="lIT-dl-fID"/>
-                                <include reference="ukj-2P-XtL"/>
+                                <include reference="NO6-W3-HLH"/>
                                 <include reference="6dd-yP-1qb"/>
-                                <include reference="tUq-E6-zsx"/>
+                                <include reference="lIT-dl-fID"/>
+                                <include reference="DZG-4r-M6R"/>
+                                <include reference="ukj-2P-XtL"/>
                                 <include reference="8IW-TH-W2l"/>
                                 <include reference="GsI-Ij-0bL"/>
                                 <include reference="QmF-HF-ihv"/>
@@ -275,7 +276,8 @@
                                 <include reference="bIB-J3-eq0"/>
                                 <include reference="ito-jC-RJc"/>
                                 <include reference="kDL-4L-tec"/>
-                                <include reference="NO6-W3-HLH"/>
+                                <include reference="tUq-E6-zsx"/>
+                                <include reference="k8I-PK-QFj"/>
                             </mask>
                         </variation>
                     </view>

@@ -14,23 +14,31 @@ class PlaySoundsViewController: UIViewController
 {
 
     var audioPlayer: AVAudioPlayer!
+    var receivedAudio: RecordedAudio!
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-
-        if var filePath = NSBundle.mainBundle().pathForResource("movie_quote", ofType: "mp3")
-        {
-            var filePathURL = NSURL.fileURLWithPath(filePath)
-            audioPlayer = AVAudioPlayer(contentsOfURL: filePathURL, error: nil)
-            audioPlayer.enableRate = true
-        }
-        else
-        {
-            println("Failed to find filepath")
-        }
+        audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
+        audioPlayer.enableRate = true
+        
+        //
+        // Legacy fixed "movie_quote" code
+        // Removed in favor of the use of "receivedAudio"
+        // passed in from the RecordAudioViewController
+        //
+        
+        //        if var filePath = NSBundle.mainBundle().pathForResource("movie_quote", ofType: "mp3")
+        //        {
+        //            var filePathURL = NSURL.fileURLWithPath(filePath)
+        //            audioPlayer = AVAudioPlayer(contentsOfURL: filePathURL, error: nil)
+        //            audioPlayer.enableRate = true
+        //        }
+        //        else
+        //        {
+        //            println("Failed to find filepath")
+        //        }
     }
 
     override func didReceiveMemoryWarning()
@@ -44,7 +52,6 @@ class PlaySoundsViewController: UIViewController
         audioPlayer.stop()
         audioPlayer.rate = 0.5
         audioPlayer.currentTime = 0.0
-//        audioPlayer.prepareToPlay()
         audioPlayer.play()
     }
 
@@ -53,22 +60,9 @@ class PlaySoundsViewController: UIViewController
         audioPlayer.stop()
         audioPlayer.rate = 2.0
         audioPlayer.currentTime = 0.0
-//        audioPlayer.prepareToPlay()
         audioPlayer.play()
     }
 
-//////////////////////////
-    ////////////
-    ////////////
-    //PAUSED AT lesson 4A VIDEO 3
-    //////////////////////////
-    ////////////
-    ////////////
-    
-    
-    
-    
-    
     @IBAction func playChipmunkAudio(sender: UIButton)
     {
         
