@@ -77,7 +77,6 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         // and use of audioRecorder.delegate = self ???
         //
         audioRecorder.delegate = self
-        
         audioRecorder.meteringEnabled = true
         audioRecorder.prepareToRecord()
         audioRecorder.record()
@@ -159,16 +158,10 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    /////////////////////
+    //
+    //   THE END! :)
+    //
+    ////////////////////
 }
 
