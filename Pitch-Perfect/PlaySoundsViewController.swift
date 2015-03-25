@@ -14,43 +14,24 @@ class PlaySoundsViewController: UIViewController
 {
     var audioPlayer: AVAudioPlayer!
     var receivedAudio: RecordedAudio!
-    //
+
     // for sound effects
-    //
     var audioEngine:AVAudioEngine!
     var audioFile:AVAudioFile!
     
-    //
     // Audio effect constants
-    //
     let slowSpeed:Float = 0.5
     let fastSpeed:Float = 2.0
     let highPitch = 1000
     let lowPitch = -1000
-
     
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
         audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
         audioPlayer.enableRate = true
-        
-        //
-        //        ** Legacy fixed "movie_quote" code
-        //        ** Removed in favor of the use of "receivedAudio"
-        //        ** passed in from the RecordAudioViewController
-        //
-        //        if var filePath = NSBundle.mainBundle().pathForResource("movie_quote", ofType: "mp3")
-        //        {
-        //            var filePathURL = NSURL.fileURLWithPath(filePath)
-        //            audioPlayer = AVAudioPlayer(contentsOfURL: filePathURL, error: nil)
-        //            audioPlayer.enableRate = true
-        //        }
-        //        else
-        //        {
-        //            println("Failed to find filepath")
-        //        }
         
         //
         // for sound effects
@@ -63,7 +44,6 @@ class PlaySoundsViewController: UIViewController
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     

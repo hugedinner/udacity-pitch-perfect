@@ -12,11 +12,12 @@ class RecordedAudio: NSObject
 {
     var filePathUrl: NSURL!
     var title: String!
-    
-    ////////////////
-    //////////////
-    //// paused at lesson 4a vid 12
-    ////////////////
-    //////////////
+
+    init(filePath: NSURL, fileName: String)
+    {
+        filePathUrl = filePath
+        title = fileName
+        super.init()
+    }
 }
 

@@ -9,10 +9,6 @@
 import UIKit
 import AVFoundation
 
-//
-// See Lesson 4a Video 8 for Delegates
-// and use of AVAudioRecorderDelegate ???
-//
 class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
 {
     var audioRecorder: AVAudioRecorder!
@@ -25,13 +21,11 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func viewWillAppear(animated: Bool)
@@ -52,17 +46,15 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         // Set up path and filename for recording file
         //
         let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        
         var currentDateTime = NSDate()
         var formatter = NSDateFormatter()
         formatter.dateFormat = "ddMMyyyy-HHmmss"
         var recordingName = formatter.stringFromDate(currentDateTime)+".wav"
         var pathArray = [dirPath, recordingName]
         let filePath = NSURL.fileURLWithPathComponents(pathArray)
-        println(filePath)
         
         //
-        // Prepare "Audio Session" ???
+        // Prepare Audio "Session" ???
         //
         var session = AVAudioSession.sharedInstance()
         session.setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil)
@@ -71,21 +63,12 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         // Declare, prepare and start the recording
         //
         audioRecorder = AVAudioRecorder(URL: filePath, settings: nil, error: nil)
-
-        //
-        // See Lesson 4a Video 8 for Delegates
-        // and use of audioRecorder.delegate = self ???
-        //
         audioRecorder.delegate = self
         audioRecorder.meteringEnabled = true
         audioRecorder.prepareToRecord()
         audioRecorder.record()
     }
 
-    //
-    // See Lesson 4a Video 8 for Delegates
-    // and use of AVAudioRecorderDelegate ???
-    //
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool)
     {
         if (flag)
@@ -93,10 +76,9 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
             //
             // Using the RecordedAudio class we created
             // Initialise and set the properties
+            // Now using the classes constructor
             //
-            recordedAudio = RecordedAudio()
-            recordedAudio.filePathUrl = recorder.url
-            recordedAudio.title = recorder.url.lastPathComponent
+            recordedAudio = RecordedAudio(filePath: recorder.url, fileName: recorder.url.lastPathComponent!)
             
             //
             // Remember we named the segue from the recording view
@@ -124,9 +106,6 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
     {
         if (segue.identifier == "stopRecording") // In case of multiple segues out of this view
         {
-            //
-            // REVISIT THIS in Lesson 4b Video 13 - DIDNT QUITE UNDERSTAND!!!
-            //
             let playSoundsVC:PlaySoundsViewController = segue.destinationViewController as PlaySoundsViewController
             let data = sender as RecordedAudio
             
@@ -146,12 +125,6 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         recordButton.enabled = true
         stopButton.hidden = true
         recordingInProgress.hidden = true
-
-        //
-        // Stop recording
-        // And "Audio Session" ???
-        // Google why we do this !!!
-        //
         audioRecorder.stop()
         var audioSession = AVAudioSession.sharedInstance()
         audioSession.setActive(false, error: nil)
