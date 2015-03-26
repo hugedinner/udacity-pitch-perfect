@@ -30,7 +30,6 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
 
     override func viewWillAppear(animated: Bool)
     {
-        stopButton.hidden = true
     }
     
     @IBAction func recordAudio(sender: UIButton)
@@ -40,7 +39,7 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         //
         recordButton.enabled = false
         stopButton.hidden = false
-        recordingInProgress.hidden = false
+        recordingInProgress.text = "Recording in Progress"
         
         //
         // Set up path and filename for recording file
@@ -124,7 +123,7 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         //
         recordButton.enabled = true
         stopButton.hidden = true
-        recordingInProgress.hidden = true
+        recordingInProgress.text = "Tap to Record"
         audioRecorder.stop()
         var audioSession = AVAudioSession.sharedInstance()
         audioSession.setActive(false, error: nil)
