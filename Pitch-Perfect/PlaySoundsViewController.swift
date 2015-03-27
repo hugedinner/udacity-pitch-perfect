@@ -30,11 +30,15 @@ class PlaySoundsViewController: UIViewController
     {
         super.viewDidLoad()
 
+        //
+        // Set up Audio Player with recording captured
+        // in the Record Audio view.
+        //
         audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
         audioPlayer.enableRate = true
         
         //
-        // for sound effects
+        // Set up Audio Engine
         //
         audioEngine = AVAudioEngine()
         audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
@@ -69,6 +73,69 @@ class PlaySoundsViewController: UIViewController
     {
         playAudioWithVariablePitch(lowPitch)
     }
+    
+    
+    //
+    // For playing with Echo effect
+    //
+    @IBAction func playEchoAudio(sender: UIButton)
+    {
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
+        
+        //
+        // See playAudioWithVariablePitch.
+        // ...same, same... but different
+        //
+        
+        var audioPlayerNode = AVAudioPlayerNode()
+        audioEngine.attachNode(audioPlayerNode)
+        
+        var echoEffect = AVAudioUnitDistortion()
+        echoEffect.loadFactoryPreset(AVAudioUnitDistortionPreset.MultiEcho1)
+        echoEffect.wetDryMix = 50
+        audioEngine.attachNode(echoEffect)
+        
+        audioEngine.connect(audioPlayerNode, to: echoEffect, format: nil)
+        audioEngine.connect(echoEffect, to: audioEngine.outputNode, format: nil)
+        
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        audioEngine.startAndReturnError(nil)
+        
+        audioPlayerNode.play()
+    }
+    
+    
+    //
+    // For playing with Reverb effect
+    //
+    @IBAction func playReverbAudio(sender: UIButton)
+    {
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
+        
+        //
+        // See playAudioWithVariablePitch
+        // ...same, same... but different
+        //
+        
+        var audioPlayerNode = AVAudioPlayerNode()
+        audioEngine.attachNode(audioPlayerNode)
+        
+        var reverbEffect = AVAudioUnitReverb()
+        reverbEffect.loadFactoryPreset(AVAudioUnitReverbPreset.LargeChamber)
+        reverbEffect.wetDryMix = 50
+        audioEngine.attachNode(reverbEffect)
+        
+        audioEngine.connect(audioPlayerNode, to: reverbEffect, format: nil)
+        audioEngine.connect(reverbEffect, to: audioEngine.outputNode, format: nil)
+        
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        audioEngine.startAndReturnError(nil)
+        audioPlayerNode.play()
+    }    
 
     
     @IBAction func stopPlayback(sender: UIButton)
@@ -127,69 +194,6 @@ class PlaySoundsViewController: UIViewController
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
     }
-
-    
-    //
-    // For playing with Echo effect
-    //
-    @IBAction func playEchoAudio(sender: UIButton)
-    {
-        audioPlayer.stop()
-        audioEngine.stop()
-        audioEngine.reset()
-
-        //
-        // See playAudioWithVariablePitch.
-        // ...same, same... but different
-        //
-        
-        var audioPlayerNode = AVAudioPlayerNode()
-        audioEngine.attachNode(audioPlayerNode)
-        
-        var echoEffect = AVAudioUnitDistortion()
-        echoEffect.loadFactoryPreset(AVAudioUnitDistortionPreset.MultiEcho1)
-        echoEffect.wetDryMix = 50
-        audioEngine.attachNode(echoEffect)
-
-        audioEngine.connect(audioPlayerNode, to: echoEffect, format: nil)
-        audioEngine.connect(echoEffect, to: audioEngine.outputNode, format: nil)
-        
-        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        audioEngine.startAndReturnError(nil)
-        
-        audioPlayerNode.play()
-    }
-    
-    
-    //
-    // For playing with Reverb effect
-    //
-    @IBAction func playReverbAudio(sender: UIButton)
-    {
-        audioPlayer.stop()
-        audioEngine.stop()
-        audioEngine.reset()
-        
-        //
-        // See playAudioWithVariablePitch
-        // ...same, same... but different
-        //
-        
-        var audioPlayerNode = AVAudioPlayerNode()
-        audioEngine.attachNode(audioPlayerNode)
-        
-        var reverbEffect = AVAudioUnitReverb()
-        reverbEffect.loadFactoryPreset(AVAudioUnitReverbPreset.LargeChamber)
-        reverbEffect.wetDryMix = 50
-        audioEngine.attachNode(reverbEffect)
-        
-        audioEngine.connect(audioPlayerNode, to: reverbEffect, format: nil)
-        audioEngine.connect(reverbEffect, to: audioEngine.outputNode, format: nil)
-        
-        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        audioEngine.startAndReturnError(nil)
-        audioPlayerNode.play()
-    }    
     
     /////////////////////
     //

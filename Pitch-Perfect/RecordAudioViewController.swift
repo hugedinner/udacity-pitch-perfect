@@ -76,7 +76,7 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
             session.setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil)
             
             //
-            // Declare, prepare and start the recording
+            // Prepare and start the recording
             //
             audioRecorder = AVAudioRecorder(URL: filePath, settings: nil, error: nil)
             audioRecorder.delegate = self
@@ -90,7 +90,7 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
     {
         //
         // Only make the jump to the Play Sounds view if processing
-        // the recording has completed, and it was successful
+        // the recording has completed... and it was successful
         //
         if (flag)
         {
@@ -108,8 +108,10 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         }
         else
         {
+            //
             // Oops - that wasn't in the plan!
-            // Should normally do something more than a println here.
+            // Real device would need somethibg more
+            // robust here.
             //
             println("Recording was not successful")
             stopButton.hidden = true
