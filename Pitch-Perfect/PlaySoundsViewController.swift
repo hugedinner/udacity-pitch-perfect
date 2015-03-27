@@ -22,8 +22,8 @@ class PlaySoundsViewController: UIViewController
     // Audio effect constants
     let slowSpeed:Float = 0.5
     let fastSpeed:Float = 2.0
-    let highPitch = 1000
-    let lowPitch = -1000
+    let highPitch:Float = 1000.0
+    let lowPitch:Float  = -750.0
     
 
     override func viewDidLoad()
@@ -61,52 +61,20 @@ class PlaySoundsViewController: UIViewController
     
     @IBAction func playChipmunkAudio(sender: UIButton)
     {
-        playAudioWithVariablePitch(1000)
+        playAudioWithVariablePitch(highPitch)
     }
 
     
     @IBAction func playVaderAudio(sender: UIButton)
     {
-        playAudioWithVariablePitch(-1000)
-    }
-
-    
-    @IBAction func playEchoAudio(sender: UIButton)
-    {
-        
-    }
-
-    
-    //    //
-    //    // For playing with Reverb effect
-    //    //
-    @IBAction func playReverbAudio(sender: UIButton)
-    {
-        //        audioPlayer.stop()
-        //        audioEngine.stop()
-        //        audioEngine.reset()
-        //
-        //        var audioPlayerNode = AVAudioPlayerNode()
-        //        audioEngine.attachNode(audioPlayerNode)
-        //
-        //        var changeReverbEffect = AVAudioUnitReverb()
-        //        changeReverbEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
-        //
-        //        audioEngine.attachNode(changeReverbEffect)
-        //        audioEngine.connect(audioPlayerNode, to: changeReverbEffect, format: nil)
-        //        audioEngine.connect(changeReverbEffect, to: audioEngine.outputNode, format: nil)
-        //
-        //        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        //        audioEngine.startAndReturnError(nil)
-        //        
-        //        audioPlayerNode.play()
-        //        
+        playAudioWithVariablePitch(lowPitch)
     }
 
     
     @IBAction func stopPlayback(sender: UIButton)
     {
         audioPlayer.stop()
+        audioEngine.stop()
     }
 
     
@@ -147,7 +115,59 @@ class PlaySoundsViewController: UIViewController
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
     }
+
     
+    //
+    // For playing with Echo effect
+    //
+    @IBAction func playEchoAudio(sender: UIButton)
+    {
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
+        
+        var audioPlayerNode = AVAudioPlayerNode()
+        audioEngine.attachNode(audioPlayerNode)
+        
+        var echoEffect = AVAudioUnitDistortion()
+        echoEffect.loadFactoryPreset(AVAudioUnitDistortionPreset.MultiEcho1)
+        echoEffect.wetDryMix = 50
+        audioEngine.attachNode(echoEffect)
+
+        audioEngine.connect(audioPlayerNode, to: echoEffect, format: nil)
+        audioEngine.connect(echoEffect, to: audioEngine.outputNode, format: nil)
+        
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        audioEngine.startAndReturnError(nil)
+        
+        audioPlayerNode.play()
+    }
+    
+    
+    //
+    // For playing with Reverb effect
+    //
+    @IBAction func playReverbAudio(sender: UIButton)
+    {
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
+        
+        var audioPlayerNode = AVAudioPlayerNode()
+        audioEngine.attachNode(audioPlayerNode)
+        
+        var reverbEffect = AVAudioUnitReverb()
+        reverbEffect.loadFactoryPreset(AVAudioUnitReverbPreset.LargeChamber)
+        reverbEffect.wetDryMix = 50
+        audioEngine.attachNode(reverbEffect)
+        
+        audioEngine.connect(audioPlayerNode, to: reverbEffect, format: nil)
+        audioEngine.connect(reverbEffect, to: audioEngine.outputNode, format: nil)
+        
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        audioEngine.startAndReturnError(nil)
+        audioPlayerNode.play()
+    }
     
     
     /////////////////////
