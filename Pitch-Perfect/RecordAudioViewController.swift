@@ -36,6 +36,11 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
     {
         stopButton.hidden = false
 
+        //
+        // Record/Pause/Resume depending on existence of
+        // audioRecorder instance and whether it is 
+        // already recording or not
+        //
         if ((audioRecorder) != nil)
         {
             if (audioRecorder.recording)
@@ -51,12 +56,6 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         }
         else
         {
-            //
-            // Initialise button states
-            //
-//            recordButton.enabled = false
-//            stopButton.hidden = false
-//            recordingInProgress.text = "Recording in Progress"
             recordingInProgress.text = "RECORDING - Tap to Pause"
             
             //
@@ -89,47 +88,53 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
 
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool)
     {
+        //
+        // Only make the jump to the Play Sounds view if processing
+        // the recording has completed, and it was successful
+        //
         if (flag)
         {
             //
-            // Using the RecordedAudio class we created
-            // Initialise and set the properties
-            // Now using the classes constructor
+            // Using the RecordedAudio class created,
+            // initialise it and set its properties
             //
             recordedAudio = RecordedAudio(filePath: recorder.url, fileName: recorder.url.lastPathComponent!)
             
             //
-            // Remember we named the segue from the recording view
-            // to the playback view as "stopRecording" in the storyboard
-            // we now make the segue from here to there passing recordedAudio
+            // Make the segue from this view to the Play Sounds view
+            // 'passing' the recordedAudio instance
             //
             self.performSegueWithIdentifier("stopRecording", sender: recordedAudio)
         }
         else
         {
+            // Oops - that wasn't in the plan!
+            // Should normally do something more than a println here.
+            //
             println("Recording was not successful")
-//            recordButton.enabled = true
             stopButton.hidden = true
+            recordingInProgress.text = "Tap to Record"
         }
     }
 
     //
     // Although we've said perforSegueWithIdentifier in ..DidFinishRecording above
-    // it's not yet passing anything through - just the view destination
+    // it's not yet 'passing' anything through - just the view destination
     // and path and filename (in the recordedAudio object)
     //
     // Need to "prepareForSegue"
     //
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if (segue.identifier == "stopRecording") // In case of multiple segues out of this view
+        if (segue.identifier == "stopRecording") // Check why we are here - in case of multiple segues out of this view
         {
             let playSoundsVC:PlaySoundsViewController = segue.destinationViewController as PlaySoundsViewController
             let data = sender as RecordedAudio
             
             //
-            // Need something ("receivedAudio") over the other side in PlaySoundsViewController
-            // to receive "data" (above) that we are about to send
+            // Need something ("receivedAudio") in the target
+            // view PlaySoundsViewController to receive 
+            // "data" (above) that we are about to send
             //
             playSoundsVC.receivedAudio = data
         }
@@ -137,21 +142,16 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
     
     @IBAction func stopAudio(sender: UIButton)
     {
-        //
-        // Initialise button states ???
-        //
-//        recordButton.enabled = true
         stopButton.hidden = true
         recordingInProgress.text = "Tap to Record"
         audioRecorder.stop()
         var audioSession = AVAudioSession.sharedInstance()
         audioSession.setActive(false, error: nil)
-    }
-    
+    }    
     
     /////////////////////
     //
-    //   THE END! :)
+    //   fin! :)
     //
     ////////////////////
 }

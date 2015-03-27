@@ -83,8 +83,8 @@ class PlaySoundsViewController: UIViewController
     //
     func playAudioWithVariableSpeed(pitch: Float)
     {
-        audioEngine.stop()  // task 3
-        audioEngine.reset() // task 3
+        audioEngine.stop()
+        audioEngine.reset()
         audioPlayer.stop()
         audioPlayer.rate = pitch
         audioPlayer.currentTime = 0.0
@@ -100,17 +100,29 @@ class PlaySoundsViewController: UIViewController
         audioPlayer.stop()
         audioEngine.stop()
         audioEngine.reset()
-        
+
+        //
+        // Initialise Node and attach to the Audio Engine
+        //
         var audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
+
+        //
+        // Initialise Pitch Effect and attach to the Audio Engine
+        //
         var changePitchEffect = AVAudioUnitTimePitch()
         changePitchEffect.pitch = pitch
         audioEngine.attachNode(changePitchEffect)
-        
+
+        //
+        // Connect up the pipe: Node-->Effect-->Output
+        //
         audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
         audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
         
+        //
+        // Prepare and Play It!
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
@@ -125,6 +137,11 @@ class PlaySoundsViewController: UIViewController
         audioPlayer.stop()
         audioEngine.stop()
         audioEngine.reset()
+
+        //
+        // See playAudioWithVariablePitch.
+        // ...same, same... but different
+        //
         
         var audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
@@ -153,6 +170,11 @@ class PlaySoundsViewController: UIViewController
         audioEngine.stop()
         audioEngine.reset()
         
+        //
+        // See playAudioWithVariablePitch
+        // ...same, same... but different
+        //
+        
         var audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
@@ -167,12 +189,11 @@ class PlaySoundsViewController: UIViewController
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
-    }
-    
+    }    
     
     /////////////////////
     //
-    //   THE END! :)
+    //   fin! :)
     //
     ////////////////////
 }

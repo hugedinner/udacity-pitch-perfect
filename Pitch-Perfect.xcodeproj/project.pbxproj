@@ -84,11 +84,11 @@
 				833747B31AC05CB80000BDBE /* AppDelegate.swift */,
 				833747B51AC05CB80000BDBE /* RecordAudioViewController.swift */,
 				830D12721AC0A515000FECB8 /* PlaySoundsViewController.swift */,
+				8327AC8B1AC141430098B96C /* RecordedAudio.swift */,
 				833747B71AC05CB80000BDBE /* Main.storyboard */,
 				833747BA1AC05CB80000BDBE /* Images.xcassets */,
 				833747BC1AC05CB80000BDBE /* LaunchScreen.xib */,
 				833747B11AC05CB80000BDBE /* Supporting Files */,
-				8327AC8B1AC141430098B96C /* RecordedAudio.swift */,
 			);
 			path = "Pitch-Perfect";
 			sourceTree = "<group>";
@@ -167,6 +167,7 @@
 				TargetAttributes = {
 					833747AD1AC05CB70000BDBE = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = U97YPNR68G;
 					};
 					833747C21AC05CB80000BDBE = {
 						CreatedOnToolsVersion = 6.2;
