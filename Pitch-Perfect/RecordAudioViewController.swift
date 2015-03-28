@@ -17,20 +17,19 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
     @IBOutlet weak var recordingInProgress: UILabel!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
+
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
     }
 
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
     }
 
-    override func viewWillAppear(animated: Bool)
-    {
-    }
     
     @IBAction func recordAudio(sender: UIButton)
     {
@@ -86,6 +85,7 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         }
     }
 
+    
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool)
     {
         //
@@ -119,6 +119,7 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         }
     }
 
+    
     //
     // Although we've said perforSegueWithIdentifier in ..DidFinishRecording above
     // it's not yet 'passing' anything through - just the view destination
@@ -141,6 +142,7 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
             playSoundsVC.receivedAudio = data
         }
     }
+
     
     @IBAction func stopAudio(sender: UIButton)
     {
@@ -150,11 +152,5 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
         var audioSession = AVAudioSession.sharedInstance()
         audioSession.setActive(false, error: nil)
     }    
-    
-    /////////////////////
-    //
-    //   fin! :)
-    //
-    ////////////////////
 }
 
