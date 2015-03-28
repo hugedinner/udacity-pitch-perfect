@@ -16,14 +16,14 @@ class PlaySoundsViewController: UIViewController
     var receivedAudio: RecordedAudio!
 
     // for sound effects
-    var audioEngine:AVAudioEngine!
-    var audioFile:AVAudioFile!
+    var audioEngine: AVAudioEngine!
+    var audioFile: AVAudioFile!
     
     // Audio effect constants
-    let slowSpeed:Float = 0.5
-    let fastSpeed:Float = 2.0
-    let highPitch:Float = 1000.0
-    let lowPitch:Float  = -750.0
+    let slowSpeed: Float = 0.5
+    let fastSpeed: Float = 2.0
+    let highPitch: Float = 1000.0
+    let lowPitch: Float  = -750.0
     
 
     override func viewDidLoad()

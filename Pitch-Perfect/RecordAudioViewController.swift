@@ -31,6 +31,13 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
     }
 
     
+    override func viewWillAppear(animated: Bool)
+    {
+        stopButton.hidden = true
+        recordingInProgress.text = "Tap to Record"
+    }
+
+    
     @IBAction func recordAudio(sender: UIButton)
     {
         stopButton.hidden = false
@@ -131,7 +138,7 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
     {
         if (segue.identifier == "stopRecording") // Check why we are here - in case of multiple segues out of this view
         {
-            let playSoundsVC:PlaySoundsViewController = segue.destinationViewController as PlaySoundsViewController
+            let playSoundsVC: PlaySoundsViewController = segue.destinationViewController as PlaySoundsViewController
             let data = sender as RecordedAudio
             
             //
@@ -147,7 +154,6 @@ class RecordAudioViewController: UIViewController, AVAudioRecorderDelegate
     @IBAction func stopAudio(sender: UIButton)
     {
         stopButton.hidden = true
-        recordingInProgress.text = "Tap to Record"
         audioRecorder.stop()
         var audioSession = AVAudioSession.sharedInstance()
         audioSession.setActive(false, error: nil)
